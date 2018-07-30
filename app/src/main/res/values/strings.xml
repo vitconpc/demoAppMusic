@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">DemoAppMusicService</string>
+    <string name="unknown">Unknown</string>
+    <string name="date_time">mm:ss</string>
+    <string name="time_begin">00:00</string>
+    <string name="text_hello">hello</string>
 </resources>

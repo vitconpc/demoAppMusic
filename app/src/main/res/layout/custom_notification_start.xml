@@ -2,40 +2,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_margin="@dimen/dp_5"
     android:orientation="horizontal">
 
     <ImageView
+        android:src="@mipmap/ic_launcher"
         android:id="@+id/image_avatar"
-        android:layout_width="64dp"
-        android:layout_height="64dp" />
+        android:layout_width="@dimen/dp_64"
+        android:layout_height="@dimen/dp_64" />
 
     <TextView
         android:id="@+id/text_song_name"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:text="hello"
-        android:textSize="24sp" />
+        android:text="@string/text_hello"
+        android:textSize="@dimen/dp_20" />
 
     <ImageButton
+        android:background="@android:color/white"
+        android:src="@drawable/ic_skip_previous_black_48dp"
         android:layout_marginHorizontal="@dimen/dp_5"
-        android:id="@+id/button_back"
-        android:layout_width="50dp"
+        android:id="@+id/button_previous"
+        android:layout_width="@dimen/dp_40"
         android:layout_height="match_parent" />
 
     <ImageButton
-
+        android:background="@android:color/white"
+        android:src="@drawable/ic_pause_black_48dp"
         android:layout_marginHorizontal="@dimen/dp_5"
-        android:id="@+id/button_pause"
-        android:layout_width="50dp"
+        android:id="@+id/button_start"
+        android:layout_width="@dimen/dp_40"
         android:layout_height="match_parent" />
 
     <ImageButton
+        android:background="@android:color/white"
         android:src="@drawable/ic_skip_next_black_48dp"
         android:layout_marginHorizontal="@dimen/dp_5"
         android:id="@+id/button_next"
-        android:layout_width="50dp"
+        android:layout_width="@dimen/dp_40"
         android:layout_height="match_parent" />
 </LinearLayout>

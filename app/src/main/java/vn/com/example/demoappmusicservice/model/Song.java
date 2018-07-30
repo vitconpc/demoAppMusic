@@ -3,12 +3,12 @@ package vn.com.example.demoappmusicservice.model;
 import java.io.File;
 import java.io.Serializable;
 
-public class Music implements Serializable {
+public class Song implements Serializable {
     private String name;
     private File mFilePath;
     private String mAuthor;
 
-    public Music() {
+    public Song() {
     }
 
 

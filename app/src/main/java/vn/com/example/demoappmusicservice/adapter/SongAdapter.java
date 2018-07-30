@@ -12,18 +12,18 @@ import android.widget.TextView;
 import java.util.List;
 
 import vn.com.example.demoappmusicservice.R;
-import vn.com.example.demoappmusicservice.model.Music;
+import vn.com.example.demoappmusicservice.model.Song;
 import vn.com.example.demoappmusicservice.service.AdapterListener;
 import vn.com.example.demoappmusicservice.view.MainActivity;
 
-public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHolder> {
+public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MusicViewHolder> {
     private Context mContext;
-    private List<Music> mMusics;
+    private List<Song> mSongs;
     private AdapterListener mAdapterListener;
 
-    public MusicAdapter(Context context, List<Music> musics) {
+    public SongAdapter(Context context, List<Song> songs) {
         this.mContext = context;
-        this.mMusics = musics;
+        this.mSongs = songs;
     }
 
     @NonNull
@@ -35,18 +35,18 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MusicViewHolder holder, int position) {
-        Music currentMusic = mMusics.get(position);
-        if (!currentMusic.getName().equals("")) {
-            holder.mTextSongName.setText(currentMusic.getName());
+        Song currentSong = mSongs.get(position);
+        if (!currentSong.getName().equals("")) {
+            holder.mTextSongName.setText(currentSong.getName());
         }
-        if (!currentMusic.getmAuthor().equals("")) {
-            holder.mTextAuthorName.setText(currentMusic.getmAuthor());
+        if (!currentSong.getmAuthor().equals("")) {
+            holder.mTextAuthorName.setText(currentSong.getmAuthor());
         }
     }
 
     @Override
     public int getItemCount() {
-        return mMusics.size();
+        return mSongs.size();
     }
 
     public void initListener(MainActivity activity) {

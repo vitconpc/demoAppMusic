@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.com.example.demoappmusicservice.R;
-import vn.com.example.demoappmusicservice.model.Music;
+import vn.com.example.demoappmusicservice.model.Song;
 import vn.com.example.demoappmusicservice.view.MainActivity;
 
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener,
@@ -33,7 +33,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private static final String ACTION_NEXT = "ACTION_NEXT";
     private static final String CHANNEL_ID = "CHANNEL_ID";
     private static final int ID_NOTIFICATION = 1;
-    private List<Music> mMusics;
+    private List<Song> mSongs;
     private TaskListener mTaskListener;
 
     private MusicIBinder iBinder = new MusicIBinder();
@@ -55,7 +55,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     @Override
     public void onCreate() {
         super.onCreate();
-        mMusics = new ArrayList<>();
+        mSongs = new ArrayList<>();
         new MusicAsynctask().execute(Environment.getExternalStorageDirectory());
     }
 
@@ -93,12 +93,12 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void playMusicPosition(int position) {
         mIsClientPlay = true;
         mCurrentPosition = position;
-        initMusic(mMusics.get(position));
+        initMusic(mSongs.get(position));
     }
 
-    private void initMusic(Music music) {
+    private void initMusic(Song song) {
         initMediaPlayer();
-        Uri uri = Uri.parse(music.getmFilePath().toString());
+        Uri uri = Uri.parse(song.getmFilePath().toString());
         try {
             mMediaPlayer.setDataSource(this, uri);
             mMediaPlayer.prepare();
@@ -122,7 +122,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 nextMusic();
                 break;
             case ACTION_PREVIOUS:
-                priviousMusic();
+                previousMusic();
                 break;
         }
     }
@@ -159,7 +159,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         }
         //set data, event
         remoteViews.setImageViewResource(R.id.image_avatar, R.drawable.ic_launcher_background);
-        remoteViews.setTextViewText(R.id.text_song_name, mMusics.get(mCurrentPosition).getName());
+        remoteViews.setTextViewText(R.id.text_song_name, mSongs.get(mCurrentPosition).getName());
         remoteViews.setOnClickPendingIntent(R.id.button_previous, previousPendingIntent);
         remoteViews.setOnClickPendingIntent(R.id.button_next, nextPendingIntent);
 
@@ -205,17 +205,17 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     private void postName() {
-        mTaskListener.postName(mMusics.get(mCurrentPosition).getName());
+        mTaskListener.postName(mSongs.get(mCurrentPosition).getName());
     }
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        if (mCurrentPosition < mMusics.size() - 1) {
+        if (mCurrentPosition < mSongs.size() - 1) {
             mCurrentPosition++;
         } else {
             mCurrentPosition = 0;
         }
-        initMusic(mMusics.get(mCurrentPosition));
+        initMusic(mSongs.get(mCurrentPosition));
     }
 
     @Override
@@ -253,30 +253,30 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         updateNotification(ACTION_PLAY);
     }
 
-    //next Music
+    //next Song
     public void nextMusic() {
         mIsClientPlay = true;
-        if (mCurrentPosition < mMusics.size() - 1) {
+        if (mCurrentPosition < mSongs.size() - 1) {
             mCurrentPosition++;
         } else {
             mCurrentPosition = 0;
         }
-        initMusic(mMusics.get(mCurrentPosition));
+        initMusic(mSongs.get(mCurrentPosition));
     }
 
-    // priviousMusic
-    public void priviousMusic() {
+    // previousMusic
+    public void previousMusic() {
         mIsClientPlay = true;
         if (mMediaPlayer.getCurrentPosition() > 5000) {
-            initMusic(mMusics.get(mCurrentPosition));
+            initMusic(mSongs.get(mCurrentPosition));
             return;
         }
         if (mCurrentPosition > 0) {
             mCurrentPosition--;
         } else {
-            mCurrentPosition = mMusics.size() - 1;
+            mCurrentPosition = mSongs.size() - 1;
         }
-        initMusic(mMusics.get(mCurrentPosition));
+        initMusic(mSongs.get(mCurrentPosition));
     }
 
     //seekto progess
@@ -287,7 +287,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     //next turn on service
     public void setData() {
         if (mIsLoaded) {
-            mTaskListener.onCommitLoad(mMusics);
+            mTaskListener.onCommitLoad(mSongs);
             postTime();
             postName();
             if (isAudioPlaying()) {
@@ -322,19 +322,19 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         @Override
         protected void onProgressUpdate(File... values) {
             super.onProgressUpdate(values);
-            Music music = new Music();
-            music.setName(values[0].getName());
-            music.setmFilePath(values[0]);
-            music.setmAuthor(values[0].getParent());
-            mMusics.add(music);
+            Song song = new Song();
+            song.setName(values[0].getName());
+            song.setmFilePath(values[0]);
+            song.setmAuthor(values[0].getParent());
+            mSongs.add(song);
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             mIsLoaded = true;
-            mTaskListener.onCommitLoad(mMusics);
-            initMusic(mMusics.get(mCurrentPosition));
+            mTaskListener.onCommitLoad(mSongs);
+            initMusic(mSongs.get(mCurrentPosition));
         }
 
         private void getFile(File dir) {

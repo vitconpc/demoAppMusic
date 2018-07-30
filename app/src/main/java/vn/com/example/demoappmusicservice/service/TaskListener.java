@@ -2,10 +2,10 @@ package vn.com.example.demoappmusicservice.service;
 
 import java.util.List;
 
-import vn.com.example.demoappmusicservice.model.Music;
+import vn.com.example.demoappmusicservice.model.Song;
 
 public interface TaskListener {
-    void onCommitLoad(List<Music> musics);
+    void onCommitLoad(List<Song> songs);
 
     void postName(String name);
 
