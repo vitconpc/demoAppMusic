@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_5"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/image_avatar"
+        android:layout_width="@dimen/dp_64"
+        android:layout_height="@dimen/dp_64" />
+
+    <TextView
+        android:id="@+id/text_song_name"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/text_hello"
+        android:textSize="@dimen/dp_24" />
+
+    <ImageButton
+        android:id="@+id/button_previous"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/dp_5"
+        android:background="@android:color/white"
+        android:src="@drawable/ic_skip_previous_black_48dp" />
+
+    <ImageButton
+        android:background="@android:color/white"
+        android:id="@+id/button_pause"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/dp_5"
+        android:src="@drawable/ic_play_arrow_black_48dp" />
+
+    <ImageButton
+        android:background="@android:color/white"
+        android:id="@+id/button_next"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/dp_5"
+        android:src="@drawable/ic_skip_next_black_48dp" />
+</LinearLayout>
